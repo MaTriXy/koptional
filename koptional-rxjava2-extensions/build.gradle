@@ -1,5 +1,4 @@
 apply plugin: 'kotlin'
-apply plugin: 'org.junit.platform.gradle.plugin'
 apply from: '../gradle/publishing.gradle'
 
 dependencies {
@@ -8,18 +7,12 @@ dependencies {
 }
 
 dependencies {
-    testCompile libraries.spek
-    testCompile libraries.spekJunitPlatformEngine
-    testCompile libraries.assertJ
-    testCompile libraries.junitPlatformLauncher
+    testImplementation(libraries.junitPlatformCommons)
+    testImplementation(libraries.junitSpekApi)
+    testImplementation(libraries.kotlinReflect)
 }
 
-junitPlatform {
-    platformVersion = versions.junitPlatform
-
-    filters {
-        engines {
-            include 'spek'
-        }
-    }
+dependencies {
+    testRuntimeOnly(libraries.junitPlatformEngine)
+    testRuntimeOnly(libraries.junitSpekEngine)
 }
